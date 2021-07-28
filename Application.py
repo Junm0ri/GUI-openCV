@@ -1,12 +1,21 @@
 import numpy as np
 import PySimpleGUI as sg
+import os
 import cv2
 from pathlib import Path
 
 """
 [Todo]
+・Windowclose時に確認ポップアップを表示したい
+・Githubには100Mbを超えるファイルをpushできない・・・
+・ファイル選択時に画像ファイル以外を選択したときの処理をちゃんと考える
+
+[done]
 ・保存ボタンを押した時、ウィンドウを表示して画像の保存先を確認したい→cv.imwriteで保存
 （Or... sg.saveasという機能があるらしい）
+・保存ファイルの拡張子についてもっとわかりやすくしたい
+（現在は.拡張子がない場合はjpgファイルで保存している）
+・ファイル保存ポップアップでCancelしたときに強制終了されてしまう
 
 """
 
@@ -70,6 +79,7 @@ class Main:
     def __init__(self):
         # ファイル読み込み
         # self.fp=file_read()
+        # self.fp=sg.popup_get_file("画像ファイルを選択",file_types=(("jpeg Files","jpg"),("png Files","png")))
         self.image=imread("C:/Users/yukku/OneDrive/ドキュメント/GitHub/-/Images/input2.png")
         # self.image=imread(self.fp)
 
@@ -122,7 +132,7 @@ class Main:
                 )
             ], 
             [ #Canny
-                sg.Checkbox("Canny",key='-CANNY-',enable_events=True), #二値化処理（Cannyを使用か）
+                sg.Checkbox("Canny",key='-CANNY-',enable_events=True,size=(7,10)), #二値化処理（Cannyを使用か）
                 sg.Slider(
                     (0, 255),
                     1,
@@ -150,13 +160,14 @@ class Main:
         window = sg.Window('フィルタリング調整', layout, location=(0, 0))
         # window = sg.Window('フィルタリング調整', layout)
         event,values = window.read(timeout=0)
+        
 
         # メインループ
         try:
             while True:
-                
-                Image=self.image
 
+                print(1)
+                Image=self.image
                 # imgbytes = cv2.imencode('.png', Image)[1].tobytes()
                 # window['-IMAGE-'].update(data=imgbytes)
                 
@@ -184,7 +195,16 @@ class Main:
 
                 #保存処理
                 if event == "Save":
-                    sg.popup_yes_no('www')
+                    filename = sg.popup_get_file('保存先を指定', save_as=True,file_types=(("jpeg Files","jpg"),("png Files","png"),("All Files","")))
+                    print(filename)
+                    if filename==None:
+                        pass
+                    elif filename=="":
+                        sg.PopupError("ファイル名を入力してください")
+                        continue
+                    elif filename.find('.')==-1:
+                        filename=filename+'.jpg'
+                    imwrite(filename,Image)
 
                 # #操作を反映
                 imgbytes = cv2.imencode('.png', Image)[1].tobytes()
@@ -194,8 +214,14 @@ class Main:
                 event,values = window.read()
 
                 if event in ('Exit', sg.WIN_CLOSED):
-                    # sg.popup_yes_no("終了しますか？")
-                    break
+                    a=sg.popup_yes_no("終了しますか？")
+                    print(a)
+                    if a=="Yes":
+                        break
+                    
+                    continue
+                    
+
                 
         finally:
             window.close()

@@ -1,2 +1,6 @@
 Codes/
 Images/
+dist/
+build/
+__pycache__/
+.gitignore
