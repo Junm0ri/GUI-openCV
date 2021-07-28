@@ -167,7 +167,6 @@ class Main:
         try:
             while True:
 
-                print(1)
                 Image=self.image
                 # imgbytes = cv2.imencode('.png', Image)[1].tobytes()
                 # window['-IMAGE-'].update(data=imgbytes)
