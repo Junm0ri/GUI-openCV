@@ -58,7 +58,7 @@ def file_read():
         [sg.Submit(key="submit"), sg.Cancel("Exit")]
     ]
     # WINDOWの生成
-    window = sg.Window("ファイル選択", layout)
+    window = sg.Window("画像ファイルを選択", layout)
 
     # イベントループ
     while True:
@@ -78,10 +78,10 @@ def file_read():
 class Main:
     def __init__(self):
         # ファイル読み込み
-        # self.fp=file_read()
+        self.fp=file_read()
         # self.fp=sg.popup_get_file("画像ファイルを選択",file_types=(("jpeg Files","jpg"),("png Files","png")))
-        self.image=imread("C:/Users/yukku/OneDrive/ドキュメント/GitHub/-/Images/input2.png")
-        # self.image=imread(self.fp)
+        # self.image=imread("C:/Users/yukku/OneDrive/ドキュメント/GitHub/-/Images/input2.png")
+        self.image=imread(self.fp)
 
         #画像ビューワーの大きさ調整
         self.re_length=480 #リサイズ後の横長さ
@@ -153,11 +153,12 @@ class Main:
                 )
             ],
             [
-                sg.Submit(button_text='保存',key='Save')
+                sg.Submit(button_text='保存',key='Save'),
+                sg.Submit(button_text='終了',key='Exit')
             ]
         ]
         # Windowを生成(Todo:locationの位置をimageの高さだけ上にシフトしたい)
-        window = sg.Window('フィルタリング調整', layout, location=(0, 0))
+        window = sg.Window('フィルタリング調整', layout, location=(400, 100),no_titlebar=True,grab_anywhere=True)
         # window = sg.Window('フィルタリング調整', layout)
         event,values = window.read(timeout=0)
         
@@ -213,13 +214,18 @@ class Main:
                 #操作読み込み（初期状態で画像を表示するために場所を移動した）
                 event,values = window.read()
 
-                if event in ('Exit', sg.WIN_CLOSED):
-                    a=sg.popup_yes_no("終了しますか？")
-                    print(a)
-                    if a=="Yes":
-                        break
+                #ウィンドウを閉じた時の処理（作業再開のコードの書き方がわからないためお休み中）
+                # if event in ('Exit', sg.WIN_CLOSED):
+                #     a=sg.popup_yes_no("終了しますか？")
+                #     print(a)
+                #     if a=="Yes":
+                #         break
                     
-                    continue
+                #終了ボタンを押した時に確認
+                if event == 'Exit':
+                    choice=sg.popup_yes_no("終了しますか？")
+                    if choice=="Yes":
+                        break
                     
 
                 
