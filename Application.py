@@ -158,7 +158,7 @@ class Main:
             ]
         ]
         # Windowを生成(Todo:locationの位置をimageの高さだけ上にシフトしたい)
-        window = sg.Window('フィルタリング調整', layout, location=(400, 100),no_titlebar=True,grab_anywhere=True)
+        window = sg.Window('フィルタリング調整', layout, location=(0, 0),no_titlebar=True,grab_anywhere=True)
         # window = sg.Window('フィルタリング調整', layout)
         event,values = window.read(timeout=0)
         

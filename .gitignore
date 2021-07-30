@@ -3,4 +3,5 @@ Images/
 dist/
 build/
 __pycache__/
+.vscode/
 .gitignore
