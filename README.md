@@ -22,6 +22,20 @@ OpenCVのフィルタリング処理をインタラクティブウィンドウ�
 
 ・Canny（エッジ検出）
 
-# 適用例（Threshold）
+# 適用例
+
+・Gaussian
+
+<img width="268" alt="Gaussian" src="https://user-images.githubusercontent.com/79455149/152008503-b0a69380-839d-4ba7-9a71-de9dcc9cf406.png">
+
+・Median
+
+<img width="268" alt="Median" src="https://user-images.githubusercontent.com/79455149/152008559-e5abea2f-100c-454a-80f9-a00ee79ea25b.png">
+
+・Threshold
 
 <img width="268" alt="スクリーンショット 2022-02-02 0117402" src="https://user-images.githubusercontent.com/79455149/152006991-48855e23-4f39-4bee-92b3-1ff78b2058a6.png">
+
+・Canny
+
+<img width="268" alt="Canny" src="https://user-images.githubusercontent.com/79455149/152008626-42b78909-0779-4bd9-a0b2-f5804a16ef62.png">
